@@ -1,0 +1,22 @@
+[
+    {
+        "shape": "rect",
+        "geometry": {
+            "width": 1,
+            "height": 2
+        }
+    },
+    {
+        "shape": "circle",
+        "geometry": {
+            "radius": 1
+        }
+    },
+    {
+        "shape": "rect",
+        "geometry": {
+            "width": 1.5,
+            "height": 1.5
+        }
+    }
+]
