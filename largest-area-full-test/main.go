@@ -48,6 +48,20 @@ func readShapes(r io.Reader) ([]Shape, error) {
 	return shapes, nil
 }
 
+func LargestAreaFromReader(r io.Reader) (float64, error) {
+	shapes, err := readShapes(r)
+	if err != nil {
+		return 0, fmt.Errorf("read shape error: %s", err)
+	}
+
+	maxArea, err := largest(shapes)
+	if err != nil {
+		return 0, fmt.Errorf("get largest shape error: %s", err)
+	}
+
+	return maxArea, nil
+}
+
 func main() {
 	inputFile := flag.String("i", "inputs.json", "Specify input file.")
 	flag.Parse()
@@ -56,18 +70,12 @@ func main() {
 		fmt.Println("input file error: ", err)
 		return
 	}
+	defer inputReader.Close()
 
-	shapes, err := readShapes(inputReader)
+	maxArea, err := LargestAreaFromReader(inputReader)
 	if err != nil {
-		fmt.Println("read shape error: ", err)
+		fmt.Println(err)
 		return
 	}
-
-	maxArea, err := largest(shapes)
-	if err != nil {
-		fmt.Println("get largest shape error: ", err)
-		return
-	}
-
 	fmt.Println("Shape with max area: ", maxArea)
 }

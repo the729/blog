@@ -94,3 +94,26 @@ func TestReadShapes_UnsupportedShape(t *testing.T) {
 	_, err := readShapes(bytes.NewReader([]byte(inputStr)))
 	assert.Error(t, err)
 }
+
+func TestLargestAreaFromReader(t *testing.T) {
+	inputStr := `
+	[
+		{
+			"shape": "rect",
+			"geometry": {
+				"width": 1,
+				"height": 2
+			}
+		},
+		{
+			"shape": "circle",
+			"geometry": {
+				"radius": 1
+			}
+		}
+	]`
+
+	maxArea, err := LargestAreaFromReader(bytes.NewReader([]byte(inputStr)))
+	assert.NoError(t, err)
+	assert.InEpsilon(t, 3.14, maxArea, 1e-9)
+}
